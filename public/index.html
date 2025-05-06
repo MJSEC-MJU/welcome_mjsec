@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정답 확인 페이지</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input { padding: 10px; margin: 5px; }
+        button { padding: 10px 20px; margin-top: 10px; }
+        #result { margin-top: 20px; }
+        a { font-size: 18px; color: blue; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h2>hint: 오류를 띄우면 플래그가 나올수도???</h2>
+
+    <input type="text" id="answer1" placeholder="400">
+    <br>
+    <input type="text" id="answer2" placeholder="403">
+    <br>
+    <input type="text" id="answer3" placeholder="404">
+    <br>
+
+    <button onclick="submitAnswers()">확인</button>
+
+    <div id="result"></div>
+
+    <script src="submit-obfuscated.js"></script>
+        
+</body>
+</html>
