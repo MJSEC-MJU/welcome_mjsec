@@ -10,4 +10,5 @@ urlpatterns = [
     path('leaderboard_data/', views.leaderboard_data, name='leaderboard_data'),
     path('problem_stats/', views.problem_stats, name='problem_stats'),
     path('submission_stats/', views.submission_stats, name='submission_stats'),
+    path('flag/', views.flag_page, name='flag'),
 ]

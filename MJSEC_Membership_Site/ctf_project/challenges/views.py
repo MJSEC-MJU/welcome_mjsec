@@ -43,14 +43,15 @@ def feeds(request):
     if selected_category != ALL:
         qs = qs.filter(category=selected_category)
 
-    solved = Submission.objects.filter(user=user, correct=True)\
-                             .values_list('challenge_id', flat=True)
-
+    solved_qs = Submission.objects.filter(user=user, correct=True)
+    solved_challenges = solved_qs.values_list('challenge_id', flat=True)
+    solved_any = solved_qs.exists()
     return render(request, 'challenges/feeds.html', {
         'categories': categories,
         'selected_category': selected_category,
         'challenges': qs,
-        'solved_challenges': solved,
+        'solved_challenges':solved_challenges,
+        'solved_any': solved_any,
     })
 
 
@@ -214,7 +215,7 @@ def leaderboard_data(request):
     return JsonResponse({
         'graph': graph_json,
         'rankings': ranking_json,
-        'mvp': mvp_json,
+#        'mvp': mvp_json,
     })
 
 
@@ -267,4 +268,21 @@ def submission_stats(request):
 
     return render(request, 'challenges/submission_stats.html', {
         'submission_stats_graph': img
+    })
+
+@login_required
+def flag_page(request):
+    # 한 문제라도 맞췄는지 확인
+    solved_any = Submission.objects.filter(user=request.user, correct=True).exists()
+    if not solved_any:
+        messages.error(request, "문제를 하나 이상 풀어야 비밀번호를 확인할 수 있습니다.")
+        return redirect('challenges:feeds')
+
+    # 설정에서 가져온 오픈카톡 정보
+    chat_url = settings.MJSEC_KAKAO_CHAT_URL
+    password = settings.MJSEC_KAKAO_CHAT_PASSWORD
+
+    return render(request, 'challenges/flag.html', {
+        'kakao_chat_url': chat_url,
+        'kakao_password': password,
     })

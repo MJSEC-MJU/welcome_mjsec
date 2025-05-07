@@ -10,7 +10,8 @@
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       background: #f0f2f5;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
     .container {
       background: #fff;
@@ -78,19 +79,7 @@
         <tr>
           <th>Rank</th>
           <th>Username</th>
-          <th>Total Points</th>
-          <th>Last Submission</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <h2>MVP</h2>
-    <table id="mvp-table">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Problems Solved</th>
+          <th>Solved</th>
           <th>Total Points</th>
           <th>Last Submission</th>
         </tr>
@@ -111,45 +100,32 @@
                 .toISOString().replace('T',' ').slice(0,19);
     }
 
-    // 테이블 바디 접근자
+    // 랭킹 테이블 바디 접근자
     const rankBody = document.querySelector("#rankings-table tbody");
-    const mvpBody  = document.querySelector("#mvp-table tbody");
 
     function updateScoreboard() {
       fetch("{% url 'challenges:leaderboard_data' %}")
-        .then(r=>r.json())
-        .then(data=>{
+        .then(r => r.json())
+        .then(data => {
           // 1) 그래프 업데이트
           const graph = JSON.parse(data.graph);
-          graph.data.forEach(trace=>{
+          graph.data.forEach(trace => {
             trace.x = trace.x.map(toKST);
           });
           Plotly.react('leaderboard-graph', graph.data, graph.layout);
 
-          // 2) 사용자 랭킹 테이블
+          // 2) 사용자 랭킹 테이블 업데이트
           rankBody.innerHTML = "";
-          data.rankings.forEach(r=>{
+          data.rankings.forEach(r => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
               <td>${r[0]}</td>
               <td>${r[1]}</td>
               <td>${r[2]}</td>
               <td>${r[3]}</td>
+              <td>${r[4]}</td>
             `;
             rankBody.appendChild(tr);
-          });
-
-          // 3) MVP 테이블
-          mvpBody.innerHTML = "";
-          data.mvp.forEach(u=>{
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${u[0]}</td>
-              <td>${u[1]}</td>
-              <td>${u[2]}</td>
-              <td>${u[3]}</td>
-            `;
-            mvpBody.appendChild(tr);
           });
         })
         .catch(console.error);

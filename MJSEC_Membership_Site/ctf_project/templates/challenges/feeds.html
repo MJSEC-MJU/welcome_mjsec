@@ -2,157 +2,150 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenges | MJSEC Membership Site</title>
-    <link rel="icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #1b1616;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-        header h1 {
-            margin: 0;
-        }
-        .btn-logout {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            padding: 10px 20px;
-            background-color: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn-logout:hover {
-            background-color: #c82333;
-        }
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        /* 카테고리 탭 */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .tabs a {
-            padding: 8px 16px;
-            border-radius: 4px;
-            background: #e0e0e0;
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .tabs a.active {
-            background: #007bff;
-            color: #fff;
-        }
-        .challenges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .challenge-card {
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 180px;
-            text-align: center;
-            border: 1px solid #e0e0e0;
-            box-sizing: border-box;
-        }
-        .challenge-card:hover {
-            transform: translateY(-5px);
-        }
-        .challenge-card.solved {
-            background: #4bff72;
-        }
-        .challenge-card h2 {
-            margin: 0 0 15px;
-            color: #333;
-            font-size: 22px;
-        }
-        .challenge-card p {
-            color: #666;
-            margin: 0 0 10px;
-            line-height: 1.4;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
-        .points {
-            font-size: 18px;
-            font-weight: bold;
-            color: #007bff;
-            margin-top: auto;
-        }
-        .btn-leaderboard {
-            display: block;
-            width: 200px;
-            padding: 15px;
-            margin: 30px auto 0;
-            text-align: center;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .btn-leaderboard:hover {
-            background: #1e7e34;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenges | MJSEC Membership Site</title>
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0; padding: 0;
+    }
+    header {
+      background-color: #1b1616;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 { margin: 0; }
+    .btn-logout, .btn-join {
+      position: absolute; top: 20px;
+      padding: 10px 20px;
+      color: white; text-decoration: none;
+      border-radius: 5px; font-weight: 500;
+    }
+    .btn-join { right: 180px; background-color: #007bff; }
+    .btn-join:hover { background-color: #0056b3; }
+    .btn-logout { right: 20px; background-color: #dc3545; }
+    .btn-logout:hover { background-color: #c82333; }
+    .container {
+      padding: 20px; max-width: 1200px; margin: 0 auto;
+    }
+    .tabs {
+      display: flex; gap: 10px; margin-bottom: 20px;
+    }
+    .tabs a {
+      padding: 8px 16px; border-radius: 4px;
+      background: #e0e0e0; color: #333;
+      text-decoration: none; font-weight: 500;
+    }
+    .tabs a.active {
+      background: #007bff; color: #fff;
+    }
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .challenge-card {
+      position: relative;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      box-sizing: border-box;
+    }
+    .challenge-card:hover {
+      transform: translateY(-5px);
+    }
+    .category-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background-color: #007bff;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .challenge-card.solved {
+      background: #4bff72;
+    }
+    .challenge-card h2 {
+      margin: 0 0 15px; color: #333; font-size: 22px;
+    }
+    .challenge-card p {
+      color: #666; margin: 0 0 10px;
+      line-height: 1.4; overflow: hidden;
+      text-overflow: ellipsis; white-space: normal;
+    }
+    .points {
+      font-size: 18px; font-weight: bold;
+      color: #007bff; margin-top: auto;
+    }
+    .btn-leaderboard {
+      display: block; width: 200px;
+      padding: 15px; margin: 30px auto 0;
+      text-align: center; background-color: #28a745;
+      color: white; text-decoration: none;
+      border-radius: 5px; font-size: 16px;
+    }
+    .btn-leaderboard:hover {
+      background: #1e7e34;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>MJSEC Membership Site</h1>
-        <a href="{% url 'accounts:logout' %}" class="btn-logout">Logout</a>
-    </header>
-    <div class="container">
-        <!-- 카테고리 탭 -->
-        <nav class="tabs">
-            {% for key,label in categories %}
-                <a href="?category={{ key }}" class="{% if key == selected_category %}active{% endif %}">
-                    {{ label }}
-                </a>
-            {% endfor %}
-        </nav>
+  <header>
+    <h1>MJSEC Membership Site</h1>
+    <a
+      href="{% if solved_any %}{% url 'challenges:flag' %}{% else %}#{% endif %}"
+      class="btn-join"
+      {% if not solved_any %}
+        onclick="alert('문제를 하나 이상 풀어야 가입할 수 있습니다.'); return false;"
+      {% endif %}
+    >MJSEC 2.5기 가입하기</a>
+    <a href="{% url 'accounts:logout' %}" class="btn-logout">Logout</a>
+  </header>
 
-        <!-- 문제 카드 그리드 -->
-        <div class="challenges-grid">
-            {% for challenge in challenges %}
-                <div class="challenge-card {% if challenge.id in solved_challenges %}solved{% endif %}">
-                    <a href="{% url 'challenges:challenge_detail' challenge.id %}">
-                        <h2>{{ challenge.title }}</h2>
-                        <p>{{ challenge.description }}</p>
-                        <p class="points">{{ challenge.points }} pt</p>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- 리더보드 버튼 -->
-        <a href="{% url 'challenges:leaderboard' %}" class="btn-leaderboard">
-            View Leaderboard
+  <div class="container">
+    <!-- 카테고리 탭 -->
+    <nav class="tabs">
+      {% for key,label in categories %}
+        <a href="?category={{ key }}" class="{% if key == selected_category %}active{% endif %}">
+          {{ label }}
         </a>
+      {% endfor %}
+    </nav>
+
+    <!-- 문제 카드 그리드 -->
+    <div class="challenges-grid">
+      {% for challenge in challenges %}
+        <div class="challenge-card {% if challenge.id in solved_challenges %}solved{% endif %}">
+          <div class="category-badge">{{ challenge.get_category_display }}</div>
+          <a href="{% url 'challenges:challenge_detail' challenge.id %}">
+            <h2>{{ challenge.title }}</h2>
+            <p>{{ challenge.description }}</p>
+            <p class="points">{{ challenge.points }} pt</p>
+          </a>
+        </div>
+      {% endfor %}
     </div>
+
+    <!-- 리더보드 버튼 -->
+    <a href="{% url 'challenges:leaderboard' %}" class="btn-leaderboard">
+      View Leaderboard
+    </a>
+  </div>
 </body>
 </html>

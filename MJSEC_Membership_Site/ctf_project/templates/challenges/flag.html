@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MJSEC 2.5기 오픈카톡 비밀번호</title>
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0; padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .info {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 30px;
+      color: #856404;
+    }
+    .info p {
+      margin: 10px 0;
+      font-size: 1.2em;
+    }
+    .info a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ffeeba;
+      color: #856404;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .info a:hover {
+      background: #ffd966;
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    a.back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 MJSEC 오픈카카오톡 비밀번호 안내</h1>
+    <div class="info">
+      <p>비밀번호:</p>
+      <p><strong>{{ kakao_password }}</strong></p>
+      <a href="{{ kakao_chat_url }}" target="_blank">오픈카톡 바로 입장</a>
+    </div>
+    <a href="{% url 'challenges:feeds' %}" class="back">← 문제 목록으로 돌아가기</a>
+  </div>
+</body>
+</html>
