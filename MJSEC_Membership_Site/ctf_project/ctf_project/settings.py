@@ -26,7 +26,7 @@ SECRET_KEY = env('SECRET_KEY')
 MJSEC_KAKAO_CHAT_URL      = env('MJSEC_KAKAO_CHAT_URL')
 MJSEC_KAKAO_CHAT_PASSWORD = env('MJSEC_KAKAO_CHAT_PASSWORD')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
