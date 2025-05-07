@@ -3,10 +3,13 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인 | MJSEC CTF</title>
+    <!-- 1. 뷰포트 메타태그 추가 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 | MJSEC CTF</title>
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 전체 화면 레이아웃 */
         body {
             background-color: #1a1a1a;
             color: #f0f0f0;
@@ -14,39 +17,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* 뷰포트 높이를 100%로 잡아 수직 중앙 유지 */
+            min-height: 100vh;
             margin: 0;
             padding: 20px;
         }
 
+        /* 반응형 컨테이너 */
         .container {
             background-color: #222;
             border-radius: 8px;
             padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            width: 100%;
+            /* 화면이 작아지면 90% 폭, 커지면 최대 400px */
+            width: 90%;
             max-width: 400px;
             text-align: center;
-        }
-
-        .logo {
-            margin-bottom: 20px;
         }
 
         .logo img {
             max-width: 120px;
             height: auto;
+            display: block;
+            margin: 0 auto 20px;
         }
 
         h1 {
             font-size: 2rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 700;
             color: #61dafb;
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             margin-bottom: 20px;
             font-weight: 500;
         }
@@ -59,12 +63,12 @@
 
         label {
             font-size: 0.9rem;
-            color: #f0f0f0;
             text-align: left;
-            margin-bottom: 5px;
         }
 
-        input[type="text"], input[type="password"] {
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #444;
@@ -111,17 +115,18 @@
 
         .messages .success {
             background-color: #2dce89;
-            color: #1a1a1a;
         }
 
         .link {
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 0.9rem;
         }
+
         .link a {
             color: #61dafb;
             text-decoration: none;
         }
+
         .link a:hover {
             text-decoration: underline;
         }
@@ -133,15 +138,31 @@
             <img src="{% static 'images/logo.png' %}" alt="로고">
         </div>
         <h1>MJSEC CTF</h1>
-        <h2>Login</h2>
+        <h2>회원가입</h2>
+
         <form method="post">
             {% csrf_token %}
+            <label for="student_id">학번:</label>
+            <input type="text" id="student_id" name="student_id" required>
+
+            <label for="department">학과:</label>
+            <input type="text" id="department" name="department" required>
+
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" required>
+
             <label for="username">아이디:</label>
             <input type="text" id="username" name="username" required>
-            <label for="password">패스워드:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">로그인</button>
+
+            <label for="password1">비밀번호:</label>
+            <input type="password" id="password1" name="password1" required>
+
+            <label for="password2">비밀번호 확인:</label>
+            <input type="password" id="password2" name="password2" required>
+
+            <button type="submit">가입하기</button>
         </form>
+
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -150,10 +171,9 @@
             </ul>
         {% endif %}
 
-        <!-- 회원가입 링크 추가 -->
         <div class="link">
-            계정이 없으신가요?
-            <a href="{% url 'accounts:signup' %}">회원가입</a>
+            이미 계정이 있으신가요?
+            <a href="{% url 'accounts:login' %}">로그인으로 이동</a>
         </div>
     </div>
 </body>

@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from .forms import SignUpForm
 def login_view(request):
     if request.user.is_authenticated:
         return redirect("challenges:feeds")
@@ -26,3 +26,17 @@ def logout_view(request):
     logout(request)
     messages.success(request, "성공적으로 로그아웃되었습니다.")
     return redirect('accounts:login')
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect("challenges:feeds")
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "회원가입이 완료되었습니다. 로그인해주세요.")
+            return redirect("accounts:login")
+    else:
+        form = SignUpForm()
+
+    return render(request, "accounts/signup.html", {"form": form})
