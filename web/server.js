@@ -58,7 +58,7 @@ app.post('/check', (req, res) => {
     answer2 === correctAnswers[1] &&
     answer3 === correctAnswers[2]
   ) {
-    return res.json({ success: true, link: 'https://example.com' });
+    return res.json({ success: true, message: 'MJSEC{VFVwVFJVUHNsNUFnN0ppazdJdWc2ckc0SU8yWm1PeVlnZTJWcWV1TGlPdUxwQ0U9}' });
   }
 
   // 정답 틀림
