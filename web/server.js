@@ -58,7 +58,7 @@ app.post('/check', (req, res) => {
     answer2 === correctAnswers[1] &&
     answer3 === correctAnswers[2]
   ) {
-    return res.json({ success: true, message: 'MJSEC{VFVwVFJVUHNsNUFnN0ppazdJdWc2ckc0SU8yWm1PeVlnZTJWcWV1TGlPdUxwQ0U9}' });
+    return res.json({ success: true, message: '🎉 정답입니다! 플래그는 MJSEC{VFVwVFJVUHNsNUFnN0ppazdJdWc2ckc0SU8yWm1PeVlnZTJWcWV1TGlPdUxwQ0U9} 입니다.' });
   }
 
   // 정답 틀림
