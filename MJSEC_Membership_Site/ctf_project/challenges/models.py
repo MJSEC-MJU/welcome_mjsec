@@ -12,16 +12,37 @@ class Team(models.Model):
         return self.name
 
 class Challenge(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    flag = models.CharField(max_length=200)
-    points = models.IntegerField(default=500)  # 현재 점수
-    min_points = models.IntegerField(default=100)  # 최소 점수
+    # 2번: 문제 카테고리 필드 추가
+    CATEGORY_WEB      = 'web'
+    CATEGORY_FORENSIC = 'forensic'
+    CATEGORY_REV      = 'rev'
+    CATEGORY_PWN      = 'pwn'
+
+    CATEGORY_CHOICES = [
+        (CATEGORY_WEB,      'Web'),
+        (CATEGORY_FORENSIC, 'Forensic'),
+        (CATEGORY_REV,      'Reverse'),
+        (CATEGORY_PWN,      'Pwn'),
+    ]
+
+    category = models.CharField(
+        "카테고리",
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default=CATEGORY_WEB,
+        help_text="문제 유형을 선택하세요"
+    )
+
+    title          = models.CharField(max_length=200)
+    description    = models.TextField()
+    flag           = models.CharField(max_length=200)
+    points         = models.IntegerField(default=500)  # 현재 점수
+    min_points     = models.IntegerField(default=100)  # 최소 점수
     initial_points = models.IntegerField(default=500)  # 초기 점수
-    start_time = models.DateTimeField(default=timezone.now)
-    end_time = models.DateTimeField()  # 명시적으로 설정되도록 기본값 제거
-    file = models.FileField(upload_to='challenge_files/', blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
+    start_time     = models.DateTimeField(default=timezone.now)
+    end_time       = models.DateTimeField()  # 명시적으로 설정되도록 기본값 제거
+    file           = models.FileField(upload_to='challenge_files/', blank=True, null=True)
+    url            = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -35,7 +56,8 @@ class Challenge(models.Model):
 
     def update_challenge_score(self):
         # 현재 챌린지를 해결한 사용자 수를 계산합니다.
-        solved_count = Submission.objects.filter(challenge=self, correct=True).values('user_id').distinct().count()
+        solved_count = Submission.objects.filter(challenge=self, correct=True)\
+                                        .values('user_id').distinct().count()
         # 전체 참가자 수를 계산합니다.
         total_participants = Team.objects.filter(members__isnull=False).distinct().count()
         max_decrement_factor = 0.9
@@ -56,13 +78,14 @@ class Challenge(models.Model):
         Challenge.objects.filter(pk=self.pk).update(points=new_points)
 
 class Submission(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
-    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
-    submitted_flag = models.CharField(max_length=200)
-    submitted_at = models.DateTimeField(auto_now_add=True)
-    correct = models.BooleanField(default=False)
-    last_submission_time = models.DateTimeField(auto_now=True)  # 마지막 제출 시간
+    user                  = models.ForeignKey(User, on_delete=models.CASCADE)
+    team                  = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
+    challenge             = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    submitted_flag        = models.CharField(max_length=200)
+    submitted_at          = models.DateTimeField(auto_now_add=True)
+    correct               = models.BooleanField(default=False)
+    last_submission_time  = models.DateTimeField(auto_now=True)  # 마지막 제출 시간
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'challenge'], name='unique_user_challenge')
