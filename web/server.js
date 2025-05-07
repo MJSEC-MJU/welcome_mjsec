@@ -5,7 +5,7 @@ const cors = require('cors');
 
 
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 // 미들웨어 설정
 app.use(cors());
