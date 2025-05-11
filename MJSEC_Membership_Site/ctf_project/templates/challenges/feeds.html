@@ -11,39 +11,77 @@
     body {
       font-family: 'Arial', sans-serif;
       background-color: #f4f4f9;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
     header {
       background-color: #1b1616;
       color: white;
       padding: 20px;
-      text-align: center;
-      position: relative;
     }
-    header h1 { margin: 0; }
-    .btn-logout, .btn-join {
-      position: absolute; top: 20px;
+    /* 헤더 내부를 flex 컨테이너로 */
+    header .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    /* 버튼 그룹 */
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    /* 절대 위치 제거 & 여백 추가 */
+    .btn-join,
+    .btn-logout {
+      position: static;
+      margin: 5px 0;
       padding: 10px 20px;
-      color: white; text-decoration: none;
-      border-radius: 5px; font-weight: 500;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 500;
     }
-    .btn-join { right: 180px; background-color: #007bff; }
-    .btn-join:hover { background-color: #0056b3; }
-    .btn-logout { right: 20px; background-color: #dc3545; }
-    .btn-logout:hover { background-color: #c82333; }
+    /* 가입 버튼 */
+    .btn-join {
+      background-color: #007bff;
+    }
+    .btn-join:hover {
+      background-color: #0056b3;
+    }
+    /* 로그아웃 버튼 */
+    .btn-logout {
+      background-color: #dc3545;
+    }
+    .btn-logout:hover {
+      background-color: #c82333;
+    }
     .container {
-      padding: 20px; max-width: 1200px; margin: 0 auto;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
     .tabs {
-      display: flex; gap: 10px; margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
     }
     .tabs a {
-      padding: 8px 16px; border-radius: 4px;
-      background: #e0e0e0; color: #333;
-      text-decoration: none; font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 4px;
+      background: #e0e0e0;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
     }
     .tabs a.active {
-      background: #007bff; color: #fff;
+      background: #007bff;
+      color: #fff;
     }
     .challenges-grid {
       display: grid;
@@ -70,7 +108,8 @@
     }
     .category-badge {
       position: absolute;
-      top: 10px; left: 10px;
+      top: 10px;
+      left: 10px;
       background-color: #007bff;
       color: white;
       padding: 2px 8px;
@@ -82,36 +121,59 @@
       background: #4bff72;
     }
     .challenge-card h2 {
-      margin: 0 0 15px; color: #333; font-size: 22px;
+      margin: 0 0 15px;
+      color: #333;
+      font-size: 22px;
     }
-    /* description 부분 삭제됨 */
+    /* 설명 부분 삭제됨 */
     .points {
-      font-size: 18px; font-weight: bold;
-      color: #007bff; margin-top: auto;
+      font-size: 18px;
+      font-weight: bold;
+      color: #007bff;
+      margin-top: auto;
     }
     .btn-leaderboard {
-      display: block; width: 200px;
-      padding: 15px; margin: 30px auto 0;
-      text-align: center; background-color: #28a745;
-      color: white; text-decoration: none;
-      border-radius: 5px; font-size: 16px;
+      display: block;
+      width: 200px;
+      padding: 15px;
+      margin: 30px auto 0;
+      text-align: center;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
     }
     .btn-leaderboard:hover {
       background: #1e7e34;
+    }
+    /* 좁은 화면 대응 */
+    @media (max-width: 600px) {
+      header .header-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .header-buttons {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>MJSEC Membership Site</h1>
-    <a
-      href="{% if solved_any %}{% url 'challenges:flag' %}{% else %}#{% endif %}"
-      class="btn-join"
-      {% if not solved_any %}
-        onclick="alert('문제를 하나 이상 풀어야 가입할 수 있습니다.'); return false;"
-      {% endif %}
-    >MJSEC 2.5기 가입하기</a>
-    <a href="{% url 'accounts:logout' %}" class="btn-logout">Logout</a>
+    <div class="header-inner">
+      <h1>MJSEC Membership Site</h1>
+      <div class="header-buttons">
+        <a
+          href="{% if solved_any %}{% url 'challenges:flag' %}{% else %}#{% endif %}"
+          class="btn-join"
+          {% if not solved_any %}
+            onclick="alert('문제를 하나 이상 풀어야 가입할 수 있습니다.'); return false;"
+          {% endif %}
+        >MJSEC 2.5기 가입하기</a>
+        <a href="{% url 'accounts:logout' %}" class="btn-logout">Logout</a>
+      </div>
+    </div>
   </header>
 
   <div class="container">
