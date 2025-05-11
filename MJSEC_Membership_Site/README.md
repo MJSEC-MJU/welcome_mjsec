@@ -52,4 +52,17 @@
    ```sh
     sudo docker-compose exec web /bin/sh
     python manage.py createsuperuser
-    ```
+
+
+## ssl 인증서 만들기 
+
+1. ssl 폴더 생성
+2. OpenSSL로 자체 서명 인증서 생성
+```
+openssl req -x509 -nodes -days 365 `
+  -newkey rsa:2048 `
+  -keyout .\nginx\ssl\mjsec.key `
+  -out .\nginx\ssl\mjsec.crt `
+  -subj "/C=KR/ST=Seoul/L=Seoul/O=MJSEC/CN=mjsec.kr" `
+  -addext "subjectAltName=DNS:mjsec.kr,DNS:www.mjsec.kr"
+```
