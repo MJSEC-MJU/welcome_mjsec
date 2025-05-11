@@ -28,8 +28,11 @@ MJSEC_KAKAO_CHAT_PASSWORD = env('MJSEC_KAKAO_CHAT_PASSWORD')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["localhost", "mjsec.kr", "www.mjsec.kr","127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = [
+    'https://mjsec.kr',
+    'https://www.mjsec.kr',
+]
 
 # Application definition
 
