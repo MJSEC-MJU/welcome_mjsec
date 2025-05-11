@@ -84,11 +84,7 @@
     .challenge-card h2 {
       margin: 0 0 15px; color: #333; font-size: 22px;
     }
-    .challenge-card p {
-      color: #666; margin: 0 0 10px;
-      line-height: 1.4; overflow: hidden;
-      text-overflow: ellipsis; white-space: normal;
-    }
+    /* description 부분 삭제됨 */
     .points {
       font-size: 18px; font-weight: bold;
       color: #007bff; margin-top: auto;
@@ -135,7 +131,7 @@
           <div class="category-badge">{{ challenge.get_category_display }}</div>
           <a href="{% url 'challenges:challenge_detail' challenge.id %}">
             <h2>{{ challenge.title }}</h2>
-            <p>{{ challenge.description }}</p>
+            <!-- 설명 부분 삭제됨 -->
             <p class="points">{{ challenge.points }} pt</p>
           </a>
         </div>
