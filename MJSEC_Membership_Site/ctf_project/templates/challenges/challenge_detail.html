@@ -45,9 +45,11 @@
         }
         .challenge-details p {
             color: #f0f0f0;
-            line-height: 1.0;
+            line-height: 1.4;
             font-size: 16px;
             font-weight: 700;
+            /* 개행을 그대로 반영하려면 아래 주석 해제 */
+            /* white-space: pre-wrap; */
         }
         .challenge-details p strong { color: #007bff; }
         .file-download, .external-link {
@@ -71,24 +73,23 @@
             display: flex;
             align-items: center;
             margin-top: 20px;
-            gap: 10px;               /* 버튼과 입력칸 사이 간격 */
+            gap: 10px;
         }
         .submit-form .input-field {
-            flex: 1;                 /* 남은 공간을 전부 차지 */
+            flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             background-color: #333;
             color: #f0f0f0;
-            /* width: 100%; 삭제 */
-            max-width: none;         /* 최대 너비 제한 해제 */
+            max-width: none;
         }
         .submit-form .btn {
-            display: inline-flex;    /* 중앙 정렬을 위해 inline-flex */
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px;      /* 좌우 여유 공간 추가 */
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             background-color: #007bff;
@@ -96,8 +97,7 @@
             font-size: 20px;
             cursor: pointer;
             transition: background-color 0.3s;
-            white-space: nowrap;     /* 글자 줄바꿈 방지 */
-            /* width: auto; 기본값 */
+            white-space: nowrap;
         }
         .submit-form .btn:hover {
             background-color: #0056b3;
@@ -129,7 +129,8 @@
             <h1>{{ challenge.title }}</h1>
         </header>
         <section class="challenge-details">
-            <p>{{ challenge.description }}</p>
+            <!-- 줄바꿈을 <br>로 자동 변환 -->
+            <p>{{ challenge.description|linebreaksbr }}</p>
             <p><strong>{{ num_solvers }}명이 해결했습니다</strong></p>
 
             {% if challenge.file %}
