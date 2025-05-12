@@ -9,13 +9,21 @@
         font-family: Arial, sans-serif;
         text-align: center;
         margin-top: 50px;
-        background-color: #d3d3d3;
+        background-color: #f4f4f9;
         color: #000000;
+      }
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        width: 480px;
       }
       input {
         padding: 10px;
         margin-top: 15px;
-        width: 350px;
+        width: 380px;
       }
       #result {
         margin-top: 20px;
@@ -28,48 +36,59 @@
     </style>
   </head>
   <body>
-    <img
-      src="assets/logo_rmbg.png"
-      alt="로고"
-      style="width: 200px; margin-bottom: 10px"
-    />
-    <br />
+    <div class="container">
+      <img
+        src="assets/logo_rmbg.png"
+        alt="로고"
+        style="width: 200px; margin-bottom: 10px"
+      />
+      <br />
 
-    <button
-      onclick="showHint()"
-      style="
-        padding: 10px 20px;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        font-size: 17px;
-      "
-    >
-      힌트 보기🧐
-    </button>
-    <br />
+      <button
+        onclick="showHint()"
+        style="
+          padding: 10px 20px;
+          margin-top: 20px;
+          margin-bottom: 10px;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          font-size: 17px;
+        "
+      >
+        힌트 보기🧐
+      </button>
+      <br />
 
-    <h2 id="hintMessage" style="display: none">
-      💡hint: 오류를 띄우면 플래그가 나올수도???
-    </h2>
+      <h2 id="hintMessage" style="display: none">
+        💡hint: 오류를 띄우면 플래그가 나올수도???
+      </h2>
 
-    <input type="text" id="answer1" placeholder="400" />
-    <br />
-    <input type="text" id="answer2" placeholder="403" />
-    <br />
-    <input type="text" id="answer3" placeholder="404" />
-    <br />
+      <input type="text" id="answer1" placeholder="400" />
+      <br />
+      <input type="text" id="answer2" placeholder="403" />
+      <br />
+      <input type="text" id="answer3" placeholder="404" />
+      <br />
 
-    <button
-      onclick="submitAnswers()"
-      style="padding: 10px 20px; margin-top: 30px"
-    >
-      확인
-    </button>
+      <button
+        onclick="submitAnswers()"
+        style="
+          padding: 10px 20px;
+          margin-top: 45px;
+          background-color: #007bff;
+          color: white;
+          transition: background-color 0.2s;
+          border: none;
+        "
+        onmouseover="this.style.backgroundColor='#0056b3'"
+        onmouseout="this.style.backgroundColor='#007bff'"
+      >
+        확인
+      </button>
 
-    <div id="result"></div>
+      <div id="result"></div>
+    </div>
 
     <script>
       function showHint() {
