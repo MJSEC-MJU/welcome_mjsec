@@ -34,7 +34,6 @@ def clear_access_log_periodically():
     while True:
         time.sleep(60)
         access_log.clear()
-        print("[INFO] access_log cleared.")
 
 threading.Thread(target=clear_access_log_periodically, daemon=True).start()
 
