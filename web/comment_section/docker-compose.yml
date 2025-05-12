@@ -1,0 +1,10 @@
+version: '3'
+services:
+  comment_section:
+    build: .
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python3 app.py
