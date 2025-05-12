@@ -1,6 +1,6 @@
 ---
 
-# The Comment Section: Deep Layer (Flask 버전)
+# The Comment Section
 
 ---
 
