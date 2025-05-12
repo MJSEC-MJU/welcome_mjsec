@@ -4,7 +4,7 @@ import json
 app = Flask(__name__)
 PORT = 8001
 
-FLAG = "FLAG{kn1gh7_3sc4p3d_th3_b04rd}"
+FLAG = "MJSEC{kn1gh7_3sc4p3d_th3_b04rd}"
 correct_path = ["G1", "F3", "E5", "D7", "B8"]
 
 INDEX_HTML = '''
