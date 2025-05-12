@@ -4,8 +4,11 @@ import json
 app = Flask(__name__)
 PORT = 8001
 
-FLAG = "MJSEC{kn1gh7_3sc4p3d_th3_b04rd}"
-correct_path = ["G1", "F3", "E5", "D7", "B8"]
+FLAG_PATH = os.path.join(os.path.dirname(__file__), 'FLAG.txt')
+with open(FLAG_PATH) as f:
+    FLAG = f.read().strip())
+with open('path.txt') as f:
+    correct_path = [line.strip() for line in f if line.strip()]
 
 INDEX_HTML = '''
 <!DOCTYPE html>
