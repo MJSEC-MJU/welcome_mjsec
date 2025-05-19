@@ -1,6 +1,5 @@
-# MJSEC_CTF_CHALLENGE
+# MJSEC_Membership_Site
 
-# CTF_XSS
 
 ## 서버 설치 단계
 1. 시스템 패키지 업데이트 및 Docker 설치:
@@ -16,8 +15,8 @@
 
 2. 프로젝트 클론:
     ```sh
-    git clone https://github.com/MJSEC-MJU/MJSEC_CTF_CHALLENGE.git
-    cd CTF_XSS/ctf_project
+    git clone https://github.com/MJSEC-MJU/welcome_mjsec.git
+    cd welcome_mjsec
     ```
 
 ## 가상환경 설정
