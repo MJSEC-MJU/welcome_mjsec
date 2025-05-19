@@ -4,6 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_GET
+from django.http import JsonResponse
 def login_view(request):
     if request.user.is_authenticated:
         return redirect("challenges:feeds")
@@ -40,3 +43,8 @@ def signup_view(request):
         form = SignUpForm()
 
     return render(request, "accounts/signup.html", {"form": form})
+@require_GET
+def validate_username(request):
+    username = request.GET.get('username', '').strip()
+    is_taken = User.objects.filter(username__iexact=username).exists()
+    return JsonResponse({'is_taken': is_taken})
